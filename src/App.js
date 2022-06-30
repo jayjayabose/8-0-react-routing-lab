@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 /*
   Components
@@ -32,14 +34,24 @@ class App extends React.Component {
     const { employees, owners, pets } = this.state;
     return (
       <div className="wrapper">
-        <Nav />
-        <Home employees={employees} owners={owners} pets={pets} />
-        <StaffList employees={employees} />
-        <PetsList pets={pets} />
-        <Footer />
+        <Router>
+          <Nav />          
+          <Routes>
+            <Route path="/" element={ <Home employees={employees} owners={owners} pets={pets} />}/>
+            <Route path="/staff" element={ <StaffList employees={employees}/> }/>
+            <Route path="/pets" element={ <PetsList pets={pets} petType="cats"/> }/>
+            <Route path="/pets/cats" element={ <PetsList pets={pets} petType="cats"/> }/>
+            <Route path="/pets/dogs" element={ <PetsList pets={pets} petType="dogs"/> }/>
+          </Routes>
+          <Footer />
+        </Router>
       </div>
     );
   }
 }
 
+/*
+  <StaffList employees={employees} />
+            <PetsList pets={pets} />
+*/
 export default App;
